@@ -1,0 +1,71 @@
+"use client";
+
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { createClient } from "@/lib/supabase/client";
+
+export default function BusinessLoginPage() {
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    const supabase = createClient();
+    const { error: err } = await supabase.auth.signInWithPassword({ email, password });
+    if (err) {
+      setError(err.message);
+      return;
+    }
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (user?.user_metadata?.role === "venueOwner") {
+      await supabase.rpc("claim_venue_owner_role");
+      await supabase.from("users").upsert(
+        {
+          id: user.id,
+          email: user.email ?? email,
+          name: (user.user_metadata?.name as string | undefined)?.trim() || email.split("@")[0],
+          role: "venueOwner",
+        },
+        { onConflict: "id" },
+      );
+    }
+    await fetch("/api/auth/sync-profile", { method: "POST" });
+    router.push("/");
+    router.refresh();
+  }
+
+  return (
+    <div className="min-h-screen flex flex-col justify-center py-12">
+      <form onSubmit={handleSubmit} className="mx-auto max-w-sm space-y-4 px-4">
+        <h1 className="text-2xl font-bold text-center">WTVA Business</h1>
+        <p className="text-center text-sm text-wtva-muted">Venue owner sign in</p>
+        <input
+          type="email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full rounded-lg border border-wtva-dark-300 bg-wtva-card px-4 py-3 text-sm"
+        />
+        <input
+          type="password"
+          required
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full rounded-lg border border-wtva-dark-300 bg-wtva-card px-4 py-3 text-sm"
+        />
+        {error && <p className="text-sm text-red-400">{error}</p>}
+        <button type="submit" className="w-full rounded-lg bg-foreground py-3 font-semibold text-background">
+          Sign in
+        </button>
+        <p className="text-center text-sm">
+          <Link href="/auth/register" className="underline text-wtva-muted">Register business</Link>
+        </p>
+      </form>
+    </div>
+  );
+}

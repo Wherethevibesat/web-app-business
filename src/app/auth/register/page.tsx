@@ -1,0 +1,58 @@
+"use client";
+
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { createClient } from "@/lib/supabase/client";
+
+export default function BusinessRegisterPage() {
+  const router = useRouter();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    const supabase = createClient();
+    const { error: err } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { data: { name, role: "venueOwner" } },
+    });
+    if (err) {
+      setError(err.message);
+      return;
+    }
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) {
+      await supabase.rpc("claim_venue_owner_role");
+      await supabase.from("users").upsert(
+        {
+          id: user.id,
+          email: user.email ?? email,
+          name: name.trim() || "User",
+          role: "venueOwner",
+        },
+        { onConflict: "id" },
+      );
+    }
+    await fetch("/api/auth/sync-profile", { method: "POST" });
+    router.push("/onboarding");
+    router.refresh();
+  }
+
+  return (
+    <div className="min-h-screen flex flex-col justify-center py-12">
+      <form onSubmit={handleSubmit} className="mx-auto max-w-sm space-y-4 px-4">
+        <h1 className="text-2xl font-bold text-center">Register business</h1>
+        <input required value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" className="w-full rounded-lg border border-wtva-dark-300 bg-wtva-card px-4 py-3 text-sm" />
+        <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="w-full rounded-lg border border-wtva-dark-300 bg-wtva-card px-4 py-3 text-sm" />
+        <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className="w-full rounded-lg border border-wtva-dark-300 bg-wtva-card px-4 py-3 text-sm" />
+        {error && <p className="text-sm text-red-400">{error}</p>}
+        <button type="submit" className="w-full rounded-lg bg-foreground py-3 font-semibold text-background">Sign up</button>
+        <p className="text-center text-sm"><Link href="/auth/login" className="underline">Sign in</Link></p>
+      </form>
+    </div>
+  );
+}
