@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 
-export default function BusinessRegisterPage() {
+function BusinessRegisterForm() {
   const router = useRouter();
   const search = useSearchParams();
   const requested = search.get("role");
@@ -79,22 +79,30 @@ export default function BusinessRegisterPage() {
   }
 
   return (
+    <form onSubmit={handleSubmit} className="mx-auto max-w-sm space-y-4 px-4">
+      <h1 className="text-2xl font-bold text-center">
+        {role === "driver"
+          ? "Register driver company"
+          : role === "promoter"
+            ? "Register as promoter"
+            : "Register business"}
+      </h1>
+      <input required value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" className="w-full rounded-lg border border-wtva-dark-300 bg-wtva-card px-4 py-3 text-sm" />
+      <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="w-full rounded-lg border border-wtva-dark-300 bg-wtva-card px-4 py-3 text-sm" />
+      <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className="w-full rounded-lg border border-wtva-dark-300 bg-wtva-card px-4 py-3 text-sm" />
+      {error && <p className="text-sm text-red-400">{error}</p>}
+      <button type="submit" className="w-full rounded-lg bg-foreground py-3 font-semibold text-background">Sign up</button>
+      <p className="text-center text-sm"><Link href="/auth/login" className="underline">Sign in</Link></p>
+    </form>
+  );
+}
+
+export default function BusinessRegisterPage() {
+  return (
     <div className="min-h-screen flex flex-col justify-center py-12">
-      <form onSubmit={handleSubmit} className="mx-auto max-w-sm space-y-4 px-4">
-        <h1 className="text-2xl font-bold text-center">
-          {role === "driver"
-            ? "Register driver company"
-            : role === "promoter"
-              ? "Register as promoter"
-              : "Register business"}
-        </h1>
-        <input required value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" className="w-full rounded-lg border border-wtva-dark-300 bg-wtva-card px-4 py-3 text-sm" />
-        <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="w-full rounded-lg border border-wtva-dark-300 bg-wtva-card px-4 py-3 text-sm" />
-        <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className="w-full rounded-lg border border-wtva-dark-300 bg-wtva-card px-4 py-3 text-sm" />
-        {error && <p className="text-sm text-red-400">{error}</p>}
-        <button type="submit" className="w-full rounded-lg bg-foreground py-3 font-semibold text-background">Sign up</button>
-        <p className="text-center text-sm"><Link href="/auth/login" className="underline">Sign in</Link></p>
-      </form>
+      <Suspense fallback={<p className="text-center text-sm text-wtva-muted">Loading…</p>}>
+        <BusinessRegisterForm />
+      </Suspense>
     </div>
   );
 }
