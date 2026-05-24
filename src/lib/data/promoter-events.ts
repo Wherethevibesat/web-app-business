@@ -75,7 +75,11 @@ export async function createPromoterEvent(
 }
 
 function formatEventStartsAt(iso: string) {
-  return new Date(iso).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" });
+  return new Date(iso).toLocaleString("en-US", {
+    dateStyle: "medium",
+    timeStyle: "short",
+    timeZone: "America/Chicago",
+  });
 }
 
 export async function sendPromoterEventRequestNotifications(
