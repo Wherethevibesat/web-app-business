@@ -22,6 +22,8 @@ export type BusinessVenueRow = {
   verified: boolean | null;
   verification_status: string | null;
   published: boolean | null;
+  listing_paid_at: string | null;
+  listing_expires_at: string | null;
   is_open: boolean | null;
   owner_id: string | null;
   latitude: number | null;

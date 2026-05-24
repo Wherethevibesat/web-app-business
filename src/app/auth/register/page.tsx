@@ -1,12 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 
 export default function BusinessRegisterPage() {
   const router = useRouter();
+  const search = useSearchParams();
+  const requested = search.get("role");
+  const role = requested === "driver" ? "driver" : "venueOwner";
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,34 +22,54 @@ export default function BusinessRegisterPage() {
     const { error: err } = await supabase.auth.signUp({
       email,
       password,
-      options: { data: { name, role: "venueOwner" } },
+      options: { data: { name, role } },
     });
     if (err) {
       setError(err.message);
       return;
     }
-    const { data: { user } } = await supabase.auth.getUser();
+
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
     if (user) {
-      await supabase.rpc("claim_venue_owner_role");
+      if (role === "driver") {
+        await supabase.rpc("claim_driver_role");
+      } else {
+        await supabase.rpc("claim_venue_owner_role");
+      }
       await supabase.from("users").upsert(
         {
           id: user.id,
           email: user.email ?? email,
           name: name.trim() || "User",
-          role: "venueOwner",
+          role,
         },
         { onConflict: "id" },
       );
     }
-    await fetch("/api/auth/sync-profile", { method: "POST" });
-    router.push("/onboarding");
+
+    await fetch("/api/auth/sync-profile", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ role }),
+    });
+
+    if (role === "driver") {
+      router.push("/driver/company/new");
+    } else {
+      router.push("/onboarding");
+    }
     router.refresh();
   }
 
   return (
     <div className="min-h-screen flex flex-col justify-center py-12">
       <form onSubmit={handleSubmit} className="mx-auto max-w-sm space-y-4 px-4">
-        <h1 className="text-2xl font-bold text-center">Register business</h1>
+        <h1 className="text-2xl font-bold text-center">
+          {role === "driver" ? "Register driver company" : "Register business"}
+        </h1>
         <input required value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" className="w-full rounded-lg border border-wtva-dark-300 bg-wtva-card px-4 py-3 text-sm" />
         <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="w-full rounded-lg border border-wtva-dark-300 bg-wtva-card px-4 py-3 text-sm" />
         <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className="w-full rounded-lg border border-wtva-dark-300 bg-wtva-card px-4 py-3 text-sm" />

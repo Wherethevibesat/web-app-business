@@ -62,7 +62,16 @@ export async function middleware(request: NextRequest) {
       user &&
       (path.startsWith("/auth/login") || path.startsWith("/auth/register"))
     ) {
-      return NextResponse.redirect(new URL("/", request.url));
+      const role = user.user_metadata?.role as string | undefined;
+      const dest = role === "driver" ? "/driver" : "/";
+      return NextResponse.redirect(new URL(dest, request.url));
+    }
+
+    if (user && path === "/") {
+      const role = user.user_metadata?.role as string | undefined;
+      if (role === "driver") {
+        return NextResponse.redirect(new URL("/driver", request.url));
+      }
     }
 
     return response;

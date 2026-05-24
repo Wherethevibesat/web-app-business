@@ -5,7 +5,7 @@ import { formatHoursLabel, normalizeOpeningHours } from "@/lib/types/opening-hou
 import type { BusinessVenueFormData, BusinessVenueRow } from "@/lib/types/venue";
 
 const VENUE_SELECT =
-  "id, name, venue_type, address, neighborhood, description, image_url, phone, hours_label, opening_hours, website_url, instagram_url, facebook_url, tiktok_url, twitter_url, subscription_tier, verified, verification_status, published, is_open, owner_id, latitude, longitude, created_at, updated_at";
+  "id, name, venue_type, address, neighborhood, description, image_url, phone, hours_label, opening_hours, website_url, instagram_url, facebook_url, tiktok_url, twitter_url, subscription_tier, verified, verification_status, published, listing_paid_at, listing_expires_at, is_open, owner_id, latitude, longitude, created_at, updated_at";
 
 function slugify(name: string): string {
   return name
@@ -187,7 +187,7 @@ export async function createOwnerVenue(
       subscription_tier: "silver",
       verified: false,
       verification_status: "none",
-      published: true,
+      published: false,
       is_open: true,
       owner_id: ownerId,
       created_at: now,
