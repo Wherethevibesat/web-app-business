@@ -4,25 +4,16 @@ import type { PromoterVenueLinkRow } from "@/lib/types/promoter";
 
 export async function listPromoterVenueLinks(
   promoterId: string,
-  supabase: SupabaseClient,
+  _supabase: SupabaseClient,
 ): Promise<PromoterVenueLinkRow[]> {
-  const { data, error } = await supabase
+  const admin = createAdminClient();
+  const { data, error } = await admin
     .from("promoter_venue_links")
     .select("*, venue:venues(id, name)")
     .eq("promoter_id", promoterId)
     .order("requested_at", { ascending: false });
 
-  if (error) {
-    const admin = createAdminClient();
-    const { data: adminData, error: adminError } = await admin
-      .from("promoter_venue_links")
-      .select("*")
-      .eq("promoter_id", promoterId)
-      .order("requested_at", { ascending: false });
-    if (adminError) throw adminError;
-    return (adminData ?? []) as PromoterVenueLinkRow[];
-  }
-
+  if (error) throw error;
   return (data ?? []).map(normalizeLink);
 }
 

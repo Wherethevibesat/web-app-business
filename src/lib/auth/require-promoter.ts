@@ -2,6 +2,7 @@ import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 import { createClient as createCookieClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { requireSupabasePublicEnv } from "@/lib/supabase/env";
 import { resolveUserProfile } from "@/lib/auth/sync-venue-owner-profile";
 import { syncPromoterProfile } from "@/lib/auth/sync-promoter-profile";
@@ -53,9 +54,10 @@ export async function requirePromoter(request?: Request) {
 export async function hasApprovedVenueLink(
   promoterId: string,
   venueId: string,
-  supabase: SupabaseClient,
+  _supabase: SupabaseClient,
 ) {
-  const { data } = await supabase
+  const admin = createAdminClient();
+  const { data } = await admin
     .from("promoter_venue_links")
     .select("id")
     .eq("promoter_id", promoterId)

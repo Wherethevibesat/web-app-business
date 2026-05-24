@@ -18,11 +18,12 @@ export type PromoterEventForReview = {
 export async function listEventsForPromoter(
   promoterId: string,
   approvedVenueIds: string[],
-  supabase: SupabaseClient,
+  _supabase: SupabaseClient,
 ) {
   if (approvedVenueIds.length === 0) return [];
 
-  const { data, error } = await supabase
+  const admin = createAdminClient();
+  const { data, error } = await admin
     .from("events")
     .select("id, title, venue_id, starts_at, ends_at, status, promoter_event_approval, created_by_promoter_id")
     .in("venue_id", approvedVenueIds)
