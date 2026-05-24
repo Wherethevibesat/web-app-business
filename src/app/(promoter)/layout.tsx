@@ -1,0 +1,45 @@
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import { PromoterNav } from "@/components/promoter-nav";
+import { requirePromoter } from "@/lib/auth/require-promoter";
+
+export default async function PromoterLayout({ children }: { children: React.ReactNode }) {
+  const auth = await requirePromoter();
+  if (auth.error === "auth") redirect("/auth/login");
+  if (auth.error === "role") {
+    return (
+      <div className="mx-auto max-w-lg px-4 py-16 text-center">
+        <h1 className="text-xl font-bold">Promoter access only</h1>
+        <p className="mt-3 text-sm text-wtva-muted">
+          Register as a promoter to manage tables and VIP offers.
+        </p>
+        <Link
+          href="/auth/register?role=promoter"
+          className="mt-6 inline-block rounded-lg bg-foreground px-4 py-2 text-sm font-semibold text-background"
+        >
+          Register promoter
+        </Link>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <header className="hidden border-b border-wtva-dark-300 md:block">
+        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+          <span className="font-bold">WTVA Promoter Portal</span>
+          <nav className="flex gap-6 text-sm text-wtva-muted">
+            <Link href="/promoter">Home</Link>
+            <Link href="/promoter/profile">Profile</Link>
+            <Link href="/promoter/venues">Venues</Link>
+            <Link href="/promoter/events">Events</Link>
+            <Link href="/promoter/offers">Offers</Link>
+            <Link href="/promoter/inbox">Inbox</Link>
+          </nav>
+        </div>
+      </header>
+      <main className="min-h-screen pb-20 md:pb-8">{children}</main>
+      <PromoterNav />
+    </>
+  );
+}

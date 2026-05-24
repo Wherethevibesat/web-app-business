@@ -36,6 +36,17 @@ export default function BusinessLoginPage() {
         },
         { onConflict: "id" },
       );
+    } else if (user && role === "promoter") {
+      await supabase.rpc("claim_promoter_role");
+      await supabase.from("users").upsert(
+        {
+          id: user.id,
+          email: user.email ?? email,
+          name: (user.user_metadata?.name as string | undefined)?.trim() || email.split("@")[0],
+          role: "promoter",
+        },
+        { onConflict: "id" },
+      );
     } else if (user && role === "venueOwner") {
       await supabase.rpc("claim_venue_owner_role");
       await supabase.from("users").upsert(
@@ -49,8 +60,13 @@ export default function BusinessLoginPage() {
       );
     }
 
-    await fetch("/api/auth/sync-profile", { method: "POST" });
-    router.push(role === "driver" ? "/driver" : "/");
+    await fetch("/api/auth/sync-profile", {
+      method: "POST",
+      body: JSON.stringify({ role }),
+    });
+    router.push(
+      role === "driver" ? "/driver" : role === "promoter" ? "/promoter" : "/",
+    );
     router.refresh();
   }
 
@@ -58,7 +74,7 @@ export default function BusinessLoginPage() {
     <div className="min-h-screen flex flex-col justify-center py-12">
       <form onSubmit={handleSubmit} className="mx-auto max-w-sm space-y-4 px-4">
         <h1 className="text-2xl font-bold text-center">WTVA Business</h1>
-        <p className="text-center text-sm text-wtva-muted">Venue owner or driver sign in</p>
+        <p className="text-center text-sm text-wtva-muted">Venue, promoter, or driver sign in</p>
         <input
           type="email"
           required
@@ -83,7 +99,11 @@ export default function BusinessLoginPage() {
           </Link>
           <span className="mx-1">|</span>
           <Link href="/auth/register?role=driver" className="underline text-wtva-muted">
-            Register driver
+            Driver
+          </Link>
+          <span className="mx-1">|</span>
+          <Link href="/auth/register?role=promoter" className="underline text-wtva-muted">
+            Promoter
           </Link>
         </p>
       </form>

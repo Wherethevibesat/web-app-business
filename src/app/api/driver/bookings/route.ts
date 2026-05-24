@@ -33,6 +33,16 @@ export async function PATCH(request: Request) {
       typeof driverNotes === "string" ? driverNotes : "",
       auth.supabase,
     );
+
+    const { sendDriverBookingResponseNotifications } = await import(
+      "@/lib/data/driver-notifications"
+    );
+    void sendDriverBookingResponseNotifications(
+      bookingId,
+      action,
+      typeof driverNotes === "string" ? driverNotes : "",
+    ).catch((err) => console.error("[email] driver booking response notifications failed:", err));
+
     return NextResponse.json({ ok: true });
   } catch (e) {
     return NextResponse.json(

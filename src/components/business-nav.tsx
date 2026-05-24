@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Calendar, CalendarDays, Home, MapPin, Megaphone, Settings, Users } from "lucide-react";
+import { Calendar, CalendarDays, Handshake, Home, MapPin, Megaphone, Settings, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const links = [
@@ -11,6 +11,7 @@ const links = [
   { href: "/events", icon: CalendarDays, label: "Events" },
   { href: "/browse", icon: Users, label: "Talent" },
   { href: "/bookings", icon: Calendar, label: "Bookings" },
+  { href: "/promoters", icon: Handshake, label: "Promoters" },
   { href: "/promotions", icon: Megaphone, label: "Promos" },
   { href: "/settings", icon: Settings, label: "Settings" },
 ];

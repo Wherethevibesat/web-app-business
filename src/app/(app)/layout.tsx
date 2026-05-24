@@ -54,6 +54,7 @@ export default async function BusinessAppLayout({
             <Link href="/events">Events</Link>
             <Link href="/browse">Browse talent</Link>
             <Link href="/bookings">Bookings</Link>
+            <Link href="/promoters">Promoters</Link>
             <Link href="/promotions">Promotions</Link>
             <Link href="/settings">Settings</Link>
           </nav>

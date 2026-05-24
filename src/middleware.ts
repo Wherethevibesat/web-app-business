@@ -63,7 +63,8 @@ export async function middleware(request: NextRequest) {
       (path.startsWith("/auth/login") || path.startsWith("/auth/register"))
     ) {
       const role = user.user_metadata?.role as string | undefined;
-      const dest = role === "driver" ? "/driver" : "/";
+      const dest =
+        role === "driver" ? "/driver" : role === "promoter" ? "/promoter" : "/";
       return NextResponse.redirect(new URL(dest, request.url));
     }
 
@@ -71,6 +72,9 @@ export async function middleware(request: NextRequest) {
       const role = user.user_metadata?.role as string | undefined;
       if (role === "driver") {
         return NextResponse.redirect(new URL("/driver", request.url));
+      }
+      if (role === "promoter") {
+        return NextResponse.redirect(new URL("/promoter", request.url));
       }
     }
 

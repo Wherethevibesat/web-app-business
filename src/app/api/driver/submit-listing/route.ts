@@ -47,6 +47,13 @@ export async function POST(request: Request) {
         .eq("id", company.id);
     }
 
+    const { sendDriverListingSubmittedNotifications } = await import(
+      "@/lib/data/driver-notifications"
+    );
+    void sendDriverListingSubmittedNotifications(company.id as string).catch((err) =>
+      console.error("[email] driver listing submitted notifications failed:", err),
+    );
+
     return NextResponse.json({ ok: true, status: "pending_review" });
   } catch (err) {
     return NextResponse.json(

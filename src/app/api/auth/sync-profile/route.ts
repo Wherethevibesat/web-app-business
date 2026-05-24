@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { syncVenueOwnerProfile } from "@/lib/auth/sync-venue-owner-profile";
 import { syncDriverProfile } from "@/lib/auth/sync-driver-profile";
+import { syncPromoterProfile } from "@/lib/auth/sync-promoter-profile";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {
@@ -17,7 +18,9 @@ export async function POST(request: Request) {
   const synced =
     preferredRole === "driver"
       ? await syncDriverProfile(user, supabase)
-      : await syncVenueOwnerProfile(user, supabase);
+      : preferredRole === "promoter"
+        ? await syncPromoterProfile(user, supabase)
+        : await syncVenueOwnerProfile(user, supabase);
 
   const { data: profile } = await supabase
     .from("users")

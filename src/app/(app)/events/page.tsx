@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { requireVenueOwner, getOwnerVenue } from "@/lib/auth/require-venue-owner";
 import { listOwnerEvents } from "@/lib/data/events";
+import { listPendingPromoterEventsForVenueOwner } from "@/lib/data/promoter-events";
+import { VenueOwnerPromoterEventsPanel } from "@/components/promoter/venue-owner-promoter-events-panel";
 
 function statusLabel(status: string) {
   switch (status) {
@@ -22,7 +24,15 @@ export default async function EventsPage() {
   const venue = auth.user ? await getOwnerVenue(auth.user.id) : null;
 
   let events: Awaited<ReturnType<typeof listOwnerEvents>> = [];
+  let pendingPromoterEvents: Awaited<ReturnType<typeof listPendingPromoterEventsForVenueOwner>> = [];
   let error: string | null = null;
+
+  if (auth.user) {
+    pendingPromoterEvents = await listPendingPromoterEventsForVenueOwner(
+      auth.user.id,
+      auth.supabase,
+    ).catch(() => []);
+  }
 
   if (venue) {
     try {
@@ -59,6 +69,27 @@ export default async function EventsPage() {
       )}
 
       {error && <p className="mt-6 text-sm text-red-400">{error}</p>}
+
+      {pendingPromoterEvents.length > 0 && (
+        <section className="mt-8 rounded-xl border border-amber-500/40 bg-amber-500/10 p-5">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <h2 className="font-semibold text-amber-100">
+                Promoter events awaiting approval ({pendingPromoterEvents.length})
+              </h2>
+              <p className="mt-1 text-sm text-wtva-muted">
+                Approve to publish on the customer app, or reject to decline.
+              </p>
+            </div>
+            <Link href="/promoters" className="text-sm underline text-wtva-muted">
+              All promoter tools
+            </Link>
+          </div>
+          <div className="mt-4">
+            <VenueOwnerPromoterEventsPanel initial={pendingPromoterEvents} />
+          </div>
+        </section>
+      )}
 
       {venue && events.length === 0 && !error && (
         <p className="mt-10 rounded-xl border border-dashed border-wtva-dark-300 py-16 text-center text-wtva-muted">
