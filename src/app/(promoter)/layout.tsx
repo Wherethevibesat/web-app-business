@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { PromoterNav } from "@/components/promoter-nav";
+import { SignOutButton } from "@/components/sign-out-button";
 import { requirePromoter } from "@/lib/auth/require-promoter";
 
 export default async function PromoterLayout({ children }: { children: React.ReactNode }) {
@@ -26,16 +27,19 @@ export default async function PromoterLayout({ children }: { children: React.Rea
   return (
     <>
       <header className="hidden border-b border-wtva-dark-300 md:block">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+        <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-4">
           <span className="font-bold">WTVA Promoter Portal</span>
-          <nav className="flex gap-6 text-sm text-wtva-muted">
-            <Link href="/promoter">Home</Link>
-            <Link href="/promoter/profile">Profile</Link>
-            <Link href="/promoter/venues">Venues</Link>
-            <Link href="/promoter/events">Events</Link>
-            <Link href="/promoter/offers">Offers</Link>
-            <Link href="/promoter/inbox">Inbox</Link>
-          </nav>
+          <div className="flex items-center gap-6">
+            <nav className="flex gap-6 text-sm text-wtva-muted">
+              <Link href="/promoter">Home</Link>
+              <Link href="/promoter/profile">Profile</Link>
+              <Link href="/promoter/venues">Venues</Link>
+              <Link href="/promoter/events">Events</Link>
+              <Link href="/promoter/offers">Offers</Link>
+              <Link href="/promoter/inbox">Inbox</Link>
+            </nav>
+            <SignOutButton className="text-sm text-wtva-muted hover:text-foreground" />
+          </div>
         </div>
       </header>
       <main className="min-h-screen pb-20 md:pb-8">{children}</main>

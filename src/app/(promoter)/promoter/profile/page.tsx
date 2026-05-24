@@ -3,6 +3,7 @@ import { requirePromoter } from "@/lib/auth/require-promoter";
 import { getPromoterProfile, profileNeedsSetup } from "@/lib/data/promoter-profile";
 import { PromoterProfileForm } from "@/components/promoter/promoter-profile-form";
 import { PromoterProfileShare } from "@/components/promoter/promoter-profile-share";
+import { SignOutButton } from "@/components/sign-out-button";
 import { customerPortalUrl } from "@/lib/email/send";
 
 export default async function PromoterProfilePage({
@@ -59,6 +60,11 @@ export default async function PromoterProfilePage({
             slug: profile?.slug ?? "",
           }}
         />
+      </div>
+
+      <div className="mt-10 border-t border-wtva-dark-300 pt-6 md:hidden">
+        <p className="text-sm text-wtva-muted">{auth.profile?.email}</p>
+        <SignOutButton className="mt-3 text-sm text-red-400 hover:text-red-300" />
       </div>
     </div>
   );
