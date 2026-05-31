@@ -223,8 +223,20 @@ export async function listOwnerEvents(
     .order("starts_at", { ascending: false });
 
   if (error) {
-    if (error.message.includes("series_id")) {
+    const shouldFallback =
+      error.code === "42P17" ||
+      error.message.includes("series_id") ||
+      error.message.includes("infinite recursion");
+    if (shouldFallback) {
       const admin = createAdminClient();
+      const { data: venueRow, error: venueError } = await admin
+        .from("venues")
+        .select("owner_id")
+        .eq("id", venueId)
+        .maybeSingle();
+      if (venueError) throw venueError;
+      if (venueRow?.owner_id !== ownerId) throw error;
+
       const fallback = await admin
         .from("events")
         .select(
