@@ -46,12 +46,20 @@ export default async function VenuesPage() {
                   {venue.neighborhood ? ` · ${venue.neighborhood}` : ""}
                 </p>
               </div>
-              <Link
-                href={`/venues/${venue.id}/edit`}
-                className="rounded-lg border border-wtva-dark-300 px-4 py-2 text-sm font-semibold hover:border-foreground"
-              >
-                Edit
-              </Link>
+              <div className="flex gap-2">
+                <Link
+                  href={`/venues/${venue.id}/qr`}
+                  className="rounded-lg border border-wtva-dark-300 px-4 py-2 text-sm font-semibold hover:border-foreground"
+                >
+                  QR code
+                </Link>
+                <Link
+                  href={`/venues/${venue.id}/edit`}
+                  className="rounded-lg border border-wtva-dark-300 px-4 py-2 text-sm font-semibold hover:border-foreground"
+                >
+                  Edit
+                </Link>
+              </div>
             </li>
           ))}
         </ul>
