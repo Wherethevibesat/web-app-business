@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { BrandLogo } from "@/components/brand-logo";
 import { DriverNav } from "@/components/driver-nav";
 import { requireDriver } from "@/lib/auth/require-driver";
 
@@ -29,9 +30,7 @@ export default async function DriverLayout({ children }: { children: React.React
     <>
       <header className="hidden border-b border-wtva-dark-300 bg-white shadow-sm md:block">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-3.5">
-          <span className="font-bold text-foreground">
-            <span className="text-accent">WTVA</span> Driver
-          </span>
+          <BrandLogo href="/driver" label="Driver" heightClass="h-11" />
           <nav className="flex gap-5 text-sm font-semibold text-foreground/75">
             <Link href="/driver" className="hover:text-accent">Home</Link>
             <Link href="/driver/company" className="hover:text-accent">Company</Link>

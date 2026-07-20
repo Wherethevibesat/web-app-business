@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { BrandLogo } from "@/components/brand-logo";
 import { createClient } from "@/lib/supabase/client";
 
 export default function BusinessLoginPage() {
@@ -73,7 +74,10 @@ export default function BusinessLoginPage() {
   return (
     <div className="min-h-screen flex flex-col justify-center py-12">
       <form onSubmit={handleSubmit} className="mx-auto max-w-sm space-y-4 px-4">
-        <h1 className="text-2xl font-bold text-center">WTVA Business</h1>
+        <div className="flex justify-center">
+          <BrandLogo href="/" heightClass="h-12" />
+        </div>
+        <p className="text-center text-sm font-semibold text-foreground">Business portal</p>
         <p className="text-center text-sm text-wtva-muted">Venue, promoter, or driver sign in</p>
         <input
           type="email"

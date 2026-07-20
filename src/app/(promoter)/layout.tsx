@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { BrandLogo } from "@/components/brand-logo";
 import { PromoterNav } from "@/components/promoter-nav";
 import { SignOutButton } from "@/components/sign-out-button";
 import { requirePromoter } from "@/lib/auth/require-promoter";
@@ -28,9 +29,7 @@ export default async function PromoterLayout({ children }: { children: React.Rea
     <>
       <header className="hidden border-b border-wtva-dark-300 bg-white shadow-sm md:block">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-3.5">
-          <span className="font-bold text-foreground">
-            <span className="text-accent">WTVA</span> Promoter
-          </span>
+          <BrandLogo href="/promoter" label="Promoter" heightClass="h-11" />
           <div className="flex items-center gap-6">
             <nav className="flex gap-5 text-sm font-semibold text-foreground/75">
               <Link href="/promoter" className="hover:text-accent">Home</Link>

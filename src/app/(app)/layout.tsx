@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { BrandLogo } from "@/components/brand-logo";
 import { BusinessNav } from "@/components/business-nav";
 import { requireVenueOwner } from "@/lib/auth/require-venue-owner";
 
@@ -47,9 +48,7 @@ export default async function BusinessAppLayout({
     <>
       <header className="hidden border-b border-wtva-dark-300 bg-white shadow-sm md:block">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-3.5">
-          <span className="font-bold text-foreground">
-            <span className="text-accent">WTVA</span> Business
-          </span>
+          <BrandLogo href="/" label="Business" heightClass="h-11" />
           <nav className="flex gap-5 text-sm font-semibold text-foreground/75">
             <Link href="/" className="hover:text-accent">Home</Link>
             <Link href="/venues" className="hover:text-accent">Venues</Link>

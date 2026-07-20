@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
+import { BrandLogo } from "@/components/brand-logo";
 import { createClient } from "@/lib/supabase/client";
 
 function BusinessRegisterForm() {
@@ -80,7 +81,10 @@ function BusinessRegisterForm() {
 
   return (
     <form onSubmit={handleSubmit} className="mx-auto max-w-sm space-y-4 px-4">
-      <h1 className="text-2xl font-bold text-center">
+      <div className="flex justify-center">
+        <BrandLogo href="/auth/login" heightClass="h-12" />
+      </div>
+      <h1 className="text-center text-xl font-bold">
         {role === "driver"
           ? "Register driver company"
           : role === "promoter"
