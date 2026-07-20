@@ -25,7 +25,7 @@ export default async function DriverCompanyPage({
       <div className="mx-auto max-w-3xl px-4 py-8">
         <h1 className="text-2xl font-bold">Driver company</h1>
         <p className="mt-3 text-sm text-wtva-muted">Create your company profile to continue.</p>
-        <Link href="/driver/company/new" className="mt-5 inline-block rounded-lg bg-foreground px-4 py-2 text-sm font-semibold text-background">
+        <Link href="/driver/company/new" className="mt-5 inline-block rounded-full bg-accent-gradient shadow-accent px-4 py-2 text-sm font-semibold text-white">
           Create company profile
         </Link>
       </div>
@@ -94,7 +94,7 @@ export default async function DriverCompanyPage({
             </p>
             <Link
               href="/api/driver/stripe/onboarding"
-              className="inline-block rounded-lg bg-foreground px-4 py-2 text-sm font-semibold text-background"
+              className="inline-block rounded-full bg-accent-gradient shadow-accent px-4 py-2 text-sm font-semibold text-white"
             >
               Connect Stripe
             </Link>
@@ -109,7 +109,7 @@ export default async function DriverCompanyPage({
             <div className="flex flex-wrap gap-3">
               <Link
                 href="/api/driver/stripe/onboarding"
-                className="inline-block rounded-lg bg-foreground px-4 py-2 text-sm font-semibold text-background"
+                className="inline-block rounded-full bg-accent-gradient shadow-accent px-4 py-2 text-sm font-semibold text-white"
               >
                 Finish onboarding
               </Link>

@@ -93,7 +93,7 @@ export default async function EditVenuePage({
             </p>
             <Link
               href={`/api/venues/stripe/onboarding?venueId=${venue.id}`}
-              className="inline-block rounded-lg bg-foreground px-4 py-2 text-sm font-semibold text-background"
+              className="inline-block rounded-full bg-accent-gradient shadow-accent px-4 py-2 text-sm font-semibold text-white"
             >
               Connect Stripe
             </Link>
@@ -108,7 +108,7 @@ export default async function EditVenuePage({
             <div className="flex flex-wrap gap-3">
               <Link
                 href={`/api/venues/stripe/onboarding?venueId=${venue.id}`}
-                className="inline-block rounded-lg bg-foreground px-4 py-2 text-sm font-semibold text-background"
+                className="inline-block rounded-full bg-accent-gradient shadow-accent px-4 py-2 text-sm font-semibold text-white"
               >
                 Finish onboarding
               </Link>

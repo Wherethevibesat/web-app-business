@@ -8,7 +8,7 @@ export default function OnboardingPage() {
         Full venue registration and verification upload matches the mobile app.
         For now, an admin can assign your venue and set verification status in the admin portal.
       </p>
-      <Link href="/" className="mt-6 inline-block rounded-lg bg-foreground px-4 py-2 text-sm font-semibold text-background">
+      <Link href="/" className="mt-6 inline-block rounded-full bg-accent-gradient shadow-accent px-4 py-2 text-sm font-semibold text-white">
         Go to dashboard
       </Link>
     </div>

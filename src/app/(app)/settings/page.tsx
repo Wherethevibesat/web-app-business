@@ -15,7 +15,7 @@ export default async function SettingsPage() {
         <p><span className="text-wtva-muted">Tier:</span> {venue?.subscription_tier ?? "—"}</p>
         <p><span className="text-wtva-muted">Verification:</span> {venue?.verification_status ?? "—"}</p>
       </div>
-      <Link href={venue ? "/venues" : "/venues/new"} className="mt-4 inline-block rounded-lg bg-foreground px-4 py-2 text-sm font-semibold text-background">
+      <Link href={venue ? "/venues" : "/venues/new"} className="mt-4 inline-block rounded-full bg-accent-gradient shadow-accent px-4 py-2 text-sm font-semibold text-white">
         {venue ? "Manage venues" : "Add your venue"}
       </Link>
       <Link href="/onboarding" className="mt-4 ml-3 inline-block text-sm underline text-wtva-muted">

@@ -28,7 +28,7 @@ export default async function BusinessAppLayout({
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <Link
             href="/auth/register"
-            className="inline-block rounded-lg bg-foreground px-4 py-2 text-sm font-semibold text-background"
+            className="inline-block rounded-full bg-accent-gradient shadow-accent px-4 py-2 text-sm font-semibold text-white"
           >
             Register business
           </Link>
@@ -45,19 +45,21 @@ export default async function BusinessAppLayout({
 
   return (
     <>
-      <header className="hidden border-b border-wtva-dark-300 md:block">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-          <span className="font-bold">WTVA Business</span>
-          <nav className="flex gap-6 text-sm text-wtva-muted">
-            <Link href="/">Home</Link>
-            <Link href="/venues">Venues</Link>
-            <Link href="/events">Events</Link>
-            <Link href="/browse">Browse talent</Link>
-            <Link href="/bookings">Bookings</Link>
-            <Link href="/redeem">Redeem</Link>
-            <Link href="/promoters">Promoters</Link>
-            <Link href="/promotions">Promotions</Link>
-            <Link href="/settings">Settings</Link>
+      <header className="hidden border-b border-wtva-dark-300 bg-white shadow-sm md:block">
+        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-3.5">
+          <span className="font-bold text-foreground">
+            <span className="text-accent">WTVA</span> Business
+          </span>
+          <nav className="flex gap-5 text-sm font-semibold text-foreground/75">
+            <Link href="/" className="hover:text-accent">Home</Link>
+            <Link href="/venues" className="hover:text-accent">Venues</Link>
+            <Link href="/events" className="hover:text-accent">Events</Link>
+            <Link href="/browse" className="hover:text-accent">Browse talent</Link>
+            <Link href="/bookings" className="hover:text-accent">Bookings</Link>
+            <Link href="/redeem" className="hover:text-accent">Redeem</Link>
+            <Link href="/promoters" className="hover:text-accent">Promoters</Link>
+            <Link href="/promotions" className="hover:text-accent">Promotions</Link>
+            <Link href="/settings" className="hover:text-accent">Settings</Link>
           </nav>
         </div>
       </header>

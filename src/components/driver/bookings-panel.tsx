@@ -80,7 +80,7 @@ export function BookingsPanel({ initial }: { initial: DriverBookingRow[] }) {
                   type="button"
                   disabled={busy === b.id}
                   onClick={() => respond(b.id, "accept")}
-                  className="rounded-lg bg-foreground px-3 py-1.5 text-xs font-semibold text-background"
+                  className="rounded-full bg-accent-gradient shadow-accent px-3 py-1.5 text-xs font-semibold text-white"
                 >
                   Accept
                 </button>

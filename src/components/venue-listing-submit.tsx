@@ -76,7 +76,7 @@ function PayForm({
       <button
         type="submit"
         disabled={loading}
-        className="w-full rounded-lg bg-foreground py-3 text-sm font-semibold text-background disabled:opacity-50"
+        className="w-full rounded-full bg-accent-gradient shadow-accent py-3 text-sm font-semibold text-white disabled:opacity-50"
       >
         {loading ? "Processing..." : "Pay & submit for review"}
       </button>
@@ -156,7 +156,7 @@ export function VenueListingSubmit({
             router.refresh();
           }
         }}
-        className="rounded-lg bg-foreground px-4 py-2 text-sm font-semibold text-background"
+        className="rounded-full bg-accent-gradient shadow-accent px-4 py-2 text-sm font-semibold text-white"
       >
         Submit for review
       </button>
@@ -171,7 +171,7 @@ export function VenueListingSubmit({
           type="button"
           disabled={loading}
           onClick={startPayment}
-          className="rounded-lg bg-foreground px-4 py-2 text-sm font-semibold text-background disabled:opacity-50"
+          className="rounded-full bg-accent-gradient shadow-accent px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
         >
           {loading ? "Loading..." : `Pay $${fee.toFixed(2)} & submit for review`}
         </button>

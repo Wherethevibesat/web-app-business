@@ -54,7 +54,7 @@ export function PromotionForm() {
       <button
         type="submit"
         disabled={loading}
-        className="rounded-lg bg-foreground px-4 py-2 text-sm font-semibold text-background disabled:opacity-50"
+        className="rounded-full bg-accent-gradient shadow-accent px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
       >
         {loading ? "Saving…" : "Save promotion"}
       </button>

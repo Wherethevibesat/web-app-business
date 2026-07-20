@@ -16,7 +16,7 @@ export default async function PromoterLayout({ children }: { children: React.Rea
         </p>
         <Link
           href="/auth/register?role=promoter"
-          className="mt-6 inline-block rounded-lg bg-foreground px-4 py-2 text-sm font-semibold text-background"
+          className="mt-6 inline-block rounded-full bg-accent-gradient shadow-accent px-4 py-2 text-sm font-semibold text-white"
         >
           Register promoter
         </Link>
@@ -26,19 +26,21 @@ export default async function PromoterLayout({ children }: { children: React.Rea
 
   return (
     <>
-      <header className="hidden border-b border-wtva-dark-300 md:block">
-        <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-4">
-          <span className="font-bold">WTVA Promoter Portal</span>
+      <header className="hidden border-b border-wtva-dark-300 bg-white shadow-sm md:block">
+        <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-3.5">
+          <span className="font-bold text-foreground">
+            <span className="text-accent">WTVA</span> Promoter
+          </span>
           <div className="flex items-center gap-6">
-            <nav className="flex gap-6 text-sm text-wtva-muted">
-              <Link href="/promoter">Home</Link>
-              <Link href="/promoter/profile">Profile</Link>
-              <Link href="/promoter/venues">Venues</Link>
-              <Link href="/promoter/events">Events</Link>
-              <Link href="/promoter/offers">Offers</Link>
-              <Link href="/promoter/inbox">Inbox</Link>
+            <nav className="flex gap-5 text-sm font-semibold text-foreground/75">
+              <Link href="/promoter" className="hover:text-accent">Home</Link>
+              <Link href="/promoter/profile" className="hover:text-accent">Profile</Link>
+              <Link href="/promoter/venues" className="hover:text-accent">Venues</Link>
+              <Link href="/promoter/events" className="hover:text-accent">Events</Link>
+              <Link href="/promoter/offers" className="hover:text-accent">Offers</Link>
+              <Link href="/promoter/inbox" className="hover:text-accent">Inbox</Link>
             </nav>
-            <SignOutButton className="text-sm text-wtva-muted hover:text-foreground" />
+            <SignOutButton className="text-sm font-semibold text-wtva-muted hover:text-accent" />
           </div>
         </div>
       </header>

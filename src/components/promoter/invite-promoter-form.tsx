@@ -90,7 +90,7 @@ export function InvitePromoterForm({ venues }: { venues: VenueOption[] }) {
       <button
         type="submit"
         disabled={busy}
-        className="mt-4 rounded-lg bg-foreground px-4 py-2 text-sm font-semibold text-background disabled:opacity-50"
+        className="mt-4 rounded-full bg-accent-gradient shadow-accent px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
       >
         {busy ? "Adding…" : "Add promoter"}
       </button>

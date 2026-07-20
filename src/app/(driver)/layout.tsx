@@ -14,7 +14,7 @@ export default async function DriverLayout({ children }: { children: React.React
           This account is not a driver account. Register as a driver to continue.
         </p>
         <div className="mt-6 flex justify-center gap-3">
-          <Link href="/auth/register?role=driver" className="rounded-lg bg-foreground px-4 py-2 text-sm font-semibold text-background">
+          <Link href="/auth/register?role=driver" className="rounded-full bg-accent-gradient shadow-accent px-4 py-2 text-sm font-semibold text-white">
             Register driver
           </Link>
           <Link href="/" className="rounded-lg border border-wtva-dark-300 px-4 py-2 text-sm font-semibold">
@@ -27,14 +27,16 @@ export default async function DriverLayout({ children }: { children: React.React
 
   return (
     <>
-      <header className="hidden border-b border-wtva-dark-300 md:block">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-          <span className="font-bold">WTVA Driver Portal</span>
-          <nav className="flex gap-6 text-sm text-wtva-muted">
-            <Link href="/driver">Home</Link>
-            <Link href="/driver/company">Company</Link>
-            <Link href="/driver/fleet">Fleet</Link>
-            <Link href="/driver/bookings">Bookings</Link>
+      <header className="hidden border-b border-wtva-dark-300 bg-white shadow-sm md:block">
+        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-3.5">
+          <span className="font-bold text-foreground">
+            <span className="text-accent">WTVA</span> Driver
+          </span>
+          <nav className="flex gap-5 text-sm font-semibold text-foreground/75">
+            <Link href="/driver" className="hover:text-accent">Home</Link>
+            <Link href="/driver/company" className="hover:text-accent">Company</Link>
+            <Link href="/driver/fleet" className="hover:text-accent">Fleet</Link>
+            <Link href="/driver/bookings" className="hover:text-accent">Bookings</Link>
           </nav>
         </div>
       </header>

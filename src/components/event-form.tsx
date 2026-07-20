@@ -354,7 +354,7 @@ export function EventForm({
                       onClick={() => toggleRecurrenceWeekday(day)}
                       className={`rounded-full px-3 py-1 text-xs font-semibold ${
                         active
-                          ? "bg-foreground text-background"
+                          ? "bg-accent-gradient text-white shadow-accent"
                           : "border border-wtva-dark-300 text-wtva-muted"
                       }`}
                     >
@@ -416,7 +416,7 @@ export function EventForm({
                 type="button"
                 onClick={handlePayClick}
                 disabled={loading || !stripeConfigured}
-                className="rounded-lg bg-foreground px-4 py-2 text-sm font-semibold text-background disabled:opacity-50"
+                className="rounded-full bg-accent-gradient shadow-accent px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
               >
                 Pay ${fee.toFixed(2)} & publish now
               </button>

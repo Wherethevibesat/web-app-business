@@ -84,7 +84,7 @@ export function ProfileInboxPanel({ initial }: { initial: PromoterProfileInquiry
                   type="button"
                   disabled={busy === i.id}
                   onClick={() => setStatus(i.id, "booked")}
-                  className="rounded-lg bg-foreground px-3 py-1 text-xs font-semibold text-background"
+                  className="rounded-full bg-accent-gradient shadow-accent px-3 py-1 text-xs font-semibold text-white"
                 >
                   Booked
                 </button>
@@ -103,7 +103,7 @@ export function ProfileInboxPanel({ initial }: { initial: PromoterProfileInquiry
                 type="button"
                 disabled={busy === i.id}
                 onClick={() => setStatus(i.id, "booked")}
-                className="rounded-lg bg-foreground px-3 py-1 text-xs font-semibold text-background"
+                className="rounded-full bg-accent-gradient shadow-accent px-3 py-1 text-xs font-semibold text-white"
               >
                 Mark booked
               </button>

@@ -23,7 +23,7 @@ export default async function DriverFleetPage() {
     <div className="mx-auto max-w-4xl px-4 py-8">
       <div className="flex items-center justify-between gap-3">
         <h1 className="text-2xl font-bold">Fleet</h1>
-        <Link href="/driver/fleet/new" className="rounded-lg bg-foreground px-4 py-2 text-sm font-semibold text-background">
+        <Link href="/driver/fleet/new" className="rounded-full bg-accent-gradient shadow-accent px-4 py-2 text-sm font-semibold text-white">
           Add vehicle
         </Link>
       </div>

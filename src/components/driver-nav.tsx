@@ -15,7 +15,7 @@ const links = [
 export function DriverNav() {
   const pathname = usePathname();
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-wtva-dark-300 bg-wtva-dark-400/95 backdrop-blur md:hidden">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-wtva-dark-300 bg-white/95 shadow-sm backdrop-blur md:hidden">
       <div className="flex justify-around py-2">
         {links.map(({ href, icon: Icon, label }) => {
           const active =
@@ -25,8 +25,8 @@ export function DriverNav() {
               key={href}
               href={href}
               className={cn(
-                "flex flex-col items-center gap-1 px-2 text-xs",
-                active ? "text-foreground" : "text-wtva-muted",
+                "flex flex-col items-center gap-1 px-2 text-xs font-semibold",
+                active ? "text-accent" : "text-wtva-muted",
               )}
             >
               <Icon className="h-5 w-5" />

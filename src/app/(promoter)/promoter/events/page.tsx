@@ -20,7 +20,7 @@ export default async function PromoterEventsPage() {
         <h1 className="text-2xl font-bold">Events</h1>
         <Link
           href="/promoter/events/new"
-          className="rounded-lg bg-foreground px-4 py-2 text-sm font-semibold text-background"
+          className="rounded-full bg-accent-gradient shadow-accent px-4 py-2 text-sm font-semibold text-white"
         >
           New event
         </Link>

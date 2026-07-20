@@ -16,7 +16,7 @@ export function PromoterNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-wtva-dark-300 bg-wtva-dark-500 md:hidden">
+    <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-wtva-dark-300 bg-white/95 shadow-sm backdrop-blur md:hidden">
       <div className="flex justify-around py-2">
         {items.map((item) => {
           const active =
@@ -25,8 +25,8 @@ export function PromoterNav() {
             <Link
               key={item.href}
               href={item.href}
-              className={`px-2 py-1 text-xs font-medium ${
-                active ? "text-foreground" : "text-wtva-muted"
+              className={`px-2 py-1 text-xs font-semibold ${
+                active ? "text-accent" : "text-wtva-muted"
               }`}
             >
               {item.label}

@@ -127,7 +127,7 @@ export function VenueLinksClient({
           type="button"
           disabled={loading || selected.length === 0}
           onClick={requestLinks}
-          className="mt-4 rounded-lg bg-foreground px-4 py-2 text-sm font-semibold text-background disabled:opacity-50"
+          className="mt-4 rounded-full bg-accent-gradient shadow-accent px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
         >
           {loading ? "Sending…" : "Request access"}
         </button>

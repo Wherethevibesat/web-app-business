@@ -54,7 +54,7 @@ export default async function EventsPage() {
         {venue ? (
           <Link
             href="/events/new"
-            className="rounded-lg bg-foreground px-4 py-2 text-sm font-semibold text-background"
+            className="rounded-full bg-accent-gradient shadow-accent px-4 py-2 text-sm font-semibold text-white"
           >
             Add event
           </Link>

@@ -18,7 +18,7 @@ export default async function PromoterOffersPage() {
         <h1 className="text-2xl font-bold">Offers</h1>
         <Link
           href="/promoter/offers/new"
-          className="rounded-lg bg-foreground px-4 py-2 text-sm font-semibold text-background"
+          className="rounded-full bg-accent-gradient shadow-accent px-4 py-2 text-sm font-semibold text-white"
         >
           New offer
         </Link>

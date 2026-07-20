@@ -50,7 +50,7 @@ export function VenueOwnerPromotersPanel({ initial }: { initial: LinkRow[] }) {
               type="button"
               disabled={busy === l.id}
               onClick={() => review(l.id, "approved")}
-              className="rounded-lg bg-foreground px-3 py-1 text-xs font-semibold text-background"
+              className="rounded-full bg-accent-gradient shadow-accent px-3 py-1 text-xs font-semibold text-white"
             >
               Approve
             </button>

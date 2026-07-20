@@ -90,7 +90,7 @@ export default function BusinessLoginPage() {
           className="w-full rounded-lg border border-wtva-dark-300 bg-wtva-card px-4 py-3 text-sm"
         />
         {error && <p className="text-sm text-red-400">{error}</p>}
-        <button type="submit" className="w-full rounded-lg bg-foreground py-3 font-semibold text-background">
+        <button type="submit" className="w-full rounded-full bg-accent-gradient shadow-accent py-3 font-semibold text-white">
           Sign in
         </button>
         <p className="text-center text-sm">

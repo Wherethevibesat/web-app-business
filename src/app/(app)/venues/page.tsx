@@ -14,7 +14,7 @@ export default async function VenuesPage() {
         <h1 className="text-2xl font-bold">Your venues</h1>
         <Link
           href="/venues/new"
-          className="rounded-lg bg-foreground px-4 py-2 text-sm font-semibold text-background"
+          className="rounded-full bg-accent-gradient shadow-accent px-4 py-2 text-sm font-semibold text-white"
         >
           Add venue
         </Link>
@@ -27,7 +27,7 @@ export default async function VenuesPage() {
           </p>
           <Link
             href="/venues/new"
-            className="mt-4 inline-block rounded-lg bg-foreground px-4 py-2 text-sm font-semibold text-background"
+            className="mt-4 inline-block rounded-full bg-accent-gradient shadow-accent px-4 py-2 text-sm font-semibold text-white"
           >
             Add your venue
           </Link>

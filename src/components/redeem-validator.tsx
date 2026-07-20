@@ -50,7 +50,7 @@ export function RedeemValidator() {
         <button
           type="submit"
           disabled={loading || !code.trim()}
-          className="w-full rounded-lg bg-foreground py-3 text-sm font-semibold text-background disabled:opacity-50"
+          className="w-full rounded-full bg-accent-gradient shadow-accent py-3 text-sm font-semibold text-white disabled:opacity-50"
         >
           {loading ? "Checking…" : "Validate & redeem"}
         </button>

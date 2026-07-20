@@ -89,7 +89,7 @@ function PaymentInner({
         <button
           type="submit"
           disabled={!stripe || loading}
-          className="flex-1 rounded-lg bg-foreground py-2 text-sm font-semibold text-background disabled:opacity-50"
+          className="flex-1 rounded-full bg-accent-gradient shadow-accent py-2 text-sm font-semibold text-white disabled:opacity-50"
         >
           {loading ? "Processing…" : `Pay $${fee.toFixed(2)} & publish`}
         </button>

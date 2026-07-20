@@ -91,7 +91,7 @@ function BusinessRegisterForm() {
       <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="w-full rounded-lg border border-wtva-dark-300 bg-wtva-card px-4 py-3 text-sm" />
       <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className="w-full rounded-lg border border-wtva-dark-300 bg-wtva-card px-4 py-3 text-sm" />
       {error && <p className="text-sm text-red-400">{error}</p>}
-      <button type="submit" className="w-full rounded-lg bg-foreground py-3 font-semibold text-background">Sign up</button>
+      <button type="submit" className="w-full rounded-full bg-accent-gradient shadow-accent py-3 font-semibold text-white">Sign up</button>
       <p className="text-center text-sm"><Link href="/auth/login" className="underline">Sign in</Link></p>
     </form>
   );

@@ -114,7 +114,7 @@ export function CompanyForm({
       <button
         type="submit"
         disabled={loading}
-        className="rounded-lg bg-foreground px-6 py-3 text-sm font-semibold text-background disabled:opacity-50"
+        className="rounded-full bg-accent-gradient shadow-accent px-6 py-3 text-sm font-semibold text-white disabled:opacity-50"
       >
         {loading ? "Saving…" : mode === "create" ? "Create profile" : "Save changes"}
       </button>
