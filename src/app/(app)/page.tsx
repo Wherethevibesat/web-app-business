@@ -59,6 +59,9 @@ export default async function BusinessHomePage() {
         <Link href="/promotions/new" className="rounded-xl border border-wtva-dark-300 bg-wtva-card p-5 hover:border-foreground">
           New promotion →
         </Link>
+        <Link href="/package-stops" className="rounded-xl border border-wtva-dark-300 bg-wtva-card p-5 hover:border-foreground">
+          Build Your Night stops →
+        </Link>
         <Link href="/promoters" className="rounded-xl border border-wtva-dark-300 bg-wtva-card p-5 hover:border-foreground">
           Promoter requests →
         </Link>

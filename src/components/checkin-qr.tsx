@@ -43,14 +43,14 @@ export function CheckinQr({
           <QRCodeSVG value={checkInUrl} size={240} level="M" includeMargin />
         </div>
         <p className="mt-4 text-lg font-bold text-black">{venueName}</p>
-        <p className="text-sm text-gray-600">Scan to check in &amp; earn points</p>
+        <p className="text-sm text-gray-600">Scan to check in at this venue</p>
       </div>
 
       <div className="flex items-start justify-between gap-4 rounded-xl border border-wtva-dark-300 bg-wtva-card p-4">
         <div>
           <p className="font-medium">Require QR to check in</p>
           <p className="text-sm text-wtva-muted">
-            When on, guests must scan this code (and be on-site) to earn points here.
+            When on, guests must scan this code (and be on-site) to check in here.
           </p>
           {error && <p className="mt-1 text-sm text-red-400">{error}</p>}
         </div>

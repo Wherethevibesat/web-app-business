@@ -8,21 +8,7 @@ export async function browseTalent() {
     .eq("role", "customer")
     .order("name");
   if (error) throw error;
-
-  const ids = (customers ?? []).map((c) => c.id);
-  const { data: rankings } = await supabase
-    .from("user_rankings")
-    .select("user_id, total_points")
-    .in("user_id", ids.length ? ids : ["00000000-0000-0000-0000-000000000000"]);
-
-  const map = new Map((rankings ?? []).map((r) => [r.user_id, r.total_points]));
-
-  return (customers ?? [])
-    .map((c) => ({
-      ...c,
-      total_points: map.get(c.id) ?? 0,
-    }))
-    .sort((a, b) => b.total_points - a.total_points);
+  return customers ?? [];
 }
 
 export async function getTalentProfile(userId: string) {
@@ -32,12 +18,7 @@ export async function getTalentProfile(userId: string) {
     .select("id, name, email, profile_image_url")
     .eq("id", userId)
     .maybeSingle();
-  const { data: rank } = await supabase
-    .from("user_rankings")
-    .select("total_points")
-    .eq("user_id", userId)
-    .maybeSingle();
-  return { user, points: rank?.total_points ?? 0 };
+  return { user };
 }
 
 export async function listBookings(ownerId: string) {
