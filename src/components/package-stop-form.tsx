@@ -25,6 +25,10 @@ export function PackageStopForm({
     capacity?: number | null;
     arrival_window?: string | null;
     image_url?: string | null;
+    why_picked?: string | null;
+    duration_label?: string | null;
+    dress_code?: string | null;
+    crowd_label?: string | null;
     contract_accepted?: boolean;
   };
 }) {
@@ -39,6 +43,10 @@ export function PackageStopForm({
   const [capacity, setCapacity] = useState(initial?.capacity?.toString() ?? "");
   const [arrivalWindow, setArrivalWindow] = useState(initial?.arrival_window ?? "");
   const [imageUrl, setImageUrl] = useState(initial?.image_url ?? "");
+  const [whyPicked, setWhyPicked] = useState(initial?.why_picked ?? "");
+  const [durationLabel, setDurationLabel] = useState(initial?.duration_label ?? "");
+  const [dressCode, setDressCode] = useState(initial?.dress_code ?? "");
+  const [crowdLabel, setCrowdLabel] = useState(initial?.crowd_label ?? "");
   const [contractAccepted, setContractAccepted] = useState(Boolean(initial?.contract_accepted));
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -72,6 +80,10 @@ export function PackageStopForm({
         capacity,
         arrivalWindow,
         imageUrl,
+        whyPicked,
+        durationLabel,
+        dressCode,
+        crowdLabel,
         contractAccepted,
         submitForReview,
       }),
@@ -151,6 +163,47 @@ export function PackageStopForm({
         />
       </label>
       <label className="block text-sm">
+        <span className="font-medium">Guest highlight</span>
+        <span className="mt-0.5 block text-xs text-wtva-muted">
+          Short note guests see when building a vibe — what’s special about this experience.
+        </span>
+        <textarea
+          className="mt-1 min-h-16 w-full rounded-lg border border-wtva-dark-300 bg-wtva-card px-3 py-2"
+          value={whyPicked}
+          onChange={(e) => setWhyPicked(e.target.value)}
+          placeholder="Reserved patio seating, bottomless mimosas, 2-minute walk to nightlife…"
+        />
+      </label>
+      <div className="grid gap-4 sm:grid-cols-3">
+        <label className="block text-sm">
+          <span className="font-medium">Duration</span>
+          <input
+            className="mt-1 w-full rounded-lg border border-wtva-dark-300 bg-wtva-card px-3 py-2"
+            value={durationLabel}
+            onChange={(e) => setDurationLabel(e.target.value)}
+            placeholder="2.5 Hours"
+          />
+        </label>
+        <label className="block text-sm">
+          <span className="font-medium">Dress code</span>
+          <input
+            className="mt-1 w-full rounded-lg border border-wtva-dark-300 bg-wtva-card px-3 py-2"
+            value={dressCode}
+            onChange={(e) => setDressCode(e.target.value)}
+            placeholder="Smart casual"
+          />
+        </label>
+        <label className="block text-sm">
+          <span className="font-medium">Crowd</span>
+          <input
+            className="mt-1 w-full rounded-lg border border-wtva-dark-300 bg-wtva-card px-3 py-2"
+            value={crowdLabel}
+            onChange={(e) => setCrowdLabel(e.target.value)}
+            placeholder="Lively"
+          />
+        </label>
+      </div>
+      <label className="block text-sm">
         <span className="font-medium">Capacity (optional)</span>
         <input
           type="number"
@@ -177,9 +230,8 @@ export function PackageStopForm({
           onChange={(e) => setContractAccepted(e.target.checked)}
         />
         <span>
-          I agree WTVA may include this stop in multi-venue “Build Your Night” packages, honor
-          confirmed guests at the listed price/inclusions, and settle payouts per WTVA’s package
-          terms.
+          I agree WTVA may include this experience in curated multi-stop vibes, honor confirmed
+          guests at the listed price/inclusions, and settle payouts per WTVA’s terms.
         </span>
       </label>
 

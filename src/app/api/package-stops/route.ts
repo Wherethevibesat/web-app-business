@@ -28,6 +28,10 @@ export async function POST(request: Request) {
       capacity: body.capacity ? Number(body.capacity) : null,
       arrivalWindow: body.arrivalWindow,
       imageUrl: body.imageUrl,
+      whyPicked: body.whyPicked,
+      durationLabel: body.durationLabel,
+      dressCode: body.dressCode,
+      crowdLabel: body.crowdLabel,
       contractAccepted: Boolean(body.contractAccepted),
       submitForReview: Boolean(body.submitForReview),
     });

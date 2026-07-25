@@ -11,6 +11,10 @@ export type PackageStopOfferInput = {
   capacity?: number | null;
   arrivalWindow?: string | null;
   imageUrl?: string | null;
+  whyPicked?: string | null;
+  durationLabel?: string | null;
+  dressCode?: string | null;
+  crowdLabel?: string | null;
   contractAccepted: boolean;
   submitForReview?: boolean;
 };
@@ -46,6 +50,10 @@ export async function upsertVenuePackageStop(
     capacity: input.capacity ?? null,
     arrival_window: input.arrivalWindow?.trim() || null,
     image_url: input.imageUrl?.trim() || null,
+    why_picked: input.whyPicked?.trim() || null,
+    duration_label: input.durationLabel?.trim() || null,
+    dress_code: input.dressCode?.trim() || null,
+    crowd_label: input.crowdLabel?.trim() || null,
     contract_accepted: input.contractAccepted,
     contract_accepted_at: input.contractAccepted ? new Date().toISOString() : null,
     created_by: userId,

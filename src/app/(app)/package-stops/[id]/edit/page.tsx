@@ -43,6 +43,10 @@ export default async function EditPackageStopPage({
             capacity: stop.capacity,
             arrival_window: stop.arrival_window,
             image_url: stop.image_url,
+            why_picked: stop.why_picked,
+            duration_label: stop.duration_label,
+            dress_code: stop.dress_code,
+            crowd_label: stop.crowd_label,
             contract_accepted: stop.contract_accepted,
           }}
         />
