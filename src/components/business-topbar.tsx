@@ -95,7 +95,7 @@ export function BusinessTopbar({
                 )}
               </div>
               <Link
-                href="/settings"
+                href="/settings?tab=account"
                 role="menuitem"
                 onClick={() => setOpen(false)}
                 className="flex items-center gap-2.5 px-3 py-2.5 text-sm text-foreground hover:bg-wtva-dark-400"
