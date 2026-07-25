@@ -26,7 +26,7 @@ export default async function VenueQrPage({
   const checkInUrl = `${base}/check-in?venue=${encodeURIComponent(venue.id as string)}&token=${encodeURIComponent((venue.check_in_token as string) ?? "")}`;
 
   return (
-    <div className="mx-auto max-w-md px-4 py-8">
+    <div className="w-full max-w-md">
       <Link href="/venues" className="text-sm text-wtva-muted hover:text-foreground">
         ← Back to venues
       </Link>

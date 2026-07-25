@@ -7,7 +7,7 @@ export default async function PackageGuestsPage() {
   const venue = await getOwnerVenue(auth.user!.id, auth.supabase);
   if (!venue) {
     return (
-      <div className="mx-auto max-w-3xl px-4 py-8">
+      <div className="w-full">
         <p className="text-wtva-muted">Link a venue to see package guests.</p>
       </div>
     );
@@ -28,7 +28,7 @@ export default async function PackageGuestsPage() {
   const rows = guests ?? [];
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8">
+    <div className="w-full">
       <Link href="/package-stops" className="text-sm text-wtva-muted hover:text-foreground">
         ← Package stops
       </Link>

@@ -9,7 +9,7 @@ export default async function BusinessHomePage() {
   const stats = await getHomeStats(auth.user!.id, venue?.id ?? null);
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8">
+    <div className="w-full">
       <h1 className="text-2xl font-bold">Welcome, {auth.profile?.name}</h1>
       <p className="text-wtva-muted">
         {venue?.name ?? (

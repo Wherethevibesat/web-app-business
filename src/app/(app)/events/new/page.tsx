@@ -16,7 +16,7 @@ export default async function NewEventPage() {
 
   if (!venue) {
     return (
-      <div className="mx-auto max-w-3xl px-4 py-8">
+      <div className="w-full">
         <h1 className="text-2xl font-bold">Add event</h1>
         <p className="text-sm text-wtva-muted">
           Link a venue to your account before creating events.{" "}
@@ -29,7 +29,7 @@ export default async function NewEventPage() {
   }
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8">
+    <div className="w-full">
       <h1 className="text-2xl font-bold">Add event</h1>
       <div className="mt-6">
         <EventForm

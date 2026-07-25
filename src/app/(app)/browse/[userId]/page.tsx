@@ -17,7 +17,7 @@ export default async function TalentDetailPage({
   if (!user) notFound();
 
   return (
-    <div className="mx-auto max-w-lg px-4 py-8">
+    <div className="w-full max-w-xl">
       <Link href="/browse" className="text-sm text-wtva-muted">
         ← Browse
       </Link>

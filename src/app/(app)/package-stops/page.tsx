@@ -23,7 +23,7 @@ export default async function PackageStopsPage() {
   const venue = await getOwnerVenue(auth.user!.id, auth.supabase);
   if (!venue) {
     return (
-      <div className="mx-auto max-w-3xl px-4 py-8">
+      <div className="w-full">
         <h1 className="text-2xl font-bold">Build Your Night</h1>
         <p className="mt-3 text-wtva-muted">
           Link a venue first, then create priced stops for WTVA packages.{" "}
@@ -38,7 +38,7 @@ export default async function PackageStopsPage() {
   const stops = await listVenuePackageStops(auth.supabase, venue.id as string).catch(() => []);
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8">
+    <div className="w-full">
       <div className="flex items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold">Package stops</h1>

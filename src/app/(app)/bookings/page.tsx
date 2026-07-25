@@ -8,7 +8,7 @@ export default async function BookingsPage() {
   const bookings = await listBookings(auth.user!.id).catch(() => []);
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8">
+    <div className="w-full">
       <h1 className="text-2xl font-bold">Bookings</h1>
       <ul className="mt-6 space-y-2">
         {bookings.map((b) => (

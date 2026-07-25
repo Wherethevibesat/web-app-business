@@ -8,7 +8,7 @@ export default async function NewPackageStopPage() {
   const venue = await getOwnerVenue(auth.user!.id, auth.supabase);
   if (!venue) {
     return (
-      <div className="mx-auto max-w-3xl px-4 py-8">
+      <div className="w-full">
         <p className="text-wtva-muted">
           <Link href="/venues/new" className="underline">
             Add a venue
@@ -20,7 +20,7 @@ export default async function NewPackageStopPage() {
   }
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8">
+    <div className="w-full">
       <Link href="/package-stops" className="text-sm text-wtva-muted hover:text-foreground">
         ← Package stops
       </Link>

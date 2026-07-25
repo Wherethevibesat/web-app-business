@@ -7,7 +7,7 @@ export default async function SettingsPage() {
   const venue = await getOwnerVenue(auth.user!.id);
 
   return (
-    <div className="mx-auto max-w-lg px-4 py-8">
+    <div className="w-full max-w-xl">
       <h1 className="text-2xl font-bold">Settings</h1>
       <div className="mt-6 rounded-xl border border-wtva-dark-300 bg-wtva-card p-5 space-y-2 text-sm">
         <p><span className="text-wtva-muted">Account:</span> {auth.profile?.email}</p>

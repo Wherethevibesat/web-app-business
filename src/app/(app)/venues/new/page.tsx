@@ -10,7 +10,7 @@ export default async function NewVenuePage() {
   const neighborhoods = await listNeighborhoodOptions().catch(() => []);
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8">
+    <div className="w-full">
       <h1 className="text-2xl font-bold">Add venue</h1>
       <div className="mt-6">
         <VenueForm ownerId={auth.user!.id} neighborhoods={neighborhoods} mode="create" />

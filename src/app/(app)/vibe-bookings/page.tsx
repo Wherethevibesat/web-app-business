@@ -10,7 +10,7 @@ export default async function VibeBookingsPage() {
   const auth = await requireVenueOwner();
   if (auth.error || !auth.user) {
     return (
-      <div className="mx-auto max-w-3xl px-4 py-10">
+      <div className="w-full">
         <p className="text-wtva-muted">Sign in as a venue owner to view bookings.</p>
       </div>
     );
@@ -65,7 +65,7 @@ export default async function VibeBookingsPage() {
   }
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8 md:px-6">
+    <div className="w-full">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Vibe bookings</h1>

@@ -23,7 +23,7 @@ export default async function EditPackageStopPage({
   if (error || !stop) notFound();
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8">
+    <div className="w-full">
       <Link href="/package-stops" className="text-sm text-wtva-muted hover:text-foreground">
         ← Package stops
       </Link>

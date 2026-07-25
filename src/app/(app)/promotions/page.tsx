@@ -8,7 +8,7 @@ export default async function PromotionsPage() {
   const promos = await listPromotions(auth.user!.id).catch(() => []);
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8">
+    <div className="w-full">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">Promotions</h1>
         <Link href="/promotions/new" className="rounded-full bg-accent-gradient shadow-accent px-4 py-2 text-sm font-semibold text-white">

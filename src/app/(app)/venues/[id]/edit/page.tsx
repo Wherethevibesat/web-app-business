@@ -34,7 +34,7 @@ export default async function EditVenuePage({
   const listingPaid = !!venue.listing_paid_at;
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8">
+    <div className="w-full">
       <Link href="/venues" className="text-sm text-wtva-muted underline">
         Back to venues
       </Link>

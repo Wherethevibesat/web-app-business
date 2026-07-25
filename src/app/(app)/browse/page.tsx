@@ -5,7 +5,7 @@ export default async function BrowsePage() {
   const talent = await browseTalent().catch(() => []);
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8">
+    <div className="w-full">
       <h1 className="text-2xl font-bold">Browse talent</h1>
       <p className="text-sm text-wtva-muted">Customers on WTVA</p>
       <ul className="mt-6 space-y-2">

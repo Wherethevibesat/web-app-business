@@ -30,7 +30,7 @@ export default async function EditEventPage({ params }: EditEventPageProps) {
   }
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8">
+    <div className="w-full">
       <h1 className="text-2xl font-bold">Edit event</h1>
       <p className="mt-1 text-sm text-wtva-muted">
         <Link href="/events" className="underline">

@@ -9,7 +9,7 @@ export default async function VenuesPage() {
   const venues = await listOwnerVenues(auth.user!.id).catch(() => []);
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8">
+    <div className="w-full">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <h1 className="text-2xl font-bold">Your venues</h1>
         <Link
