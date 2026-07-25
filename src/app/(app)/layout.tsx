@@ -16,14 +16,14 @@ export default async function BusinessAppLayout({
     const metaRole = auth.user?.user_metadata?.role as string | undefined;
     return (
       <div className="mx-auto max-w-lg px-4 py-16 text-center">
-        <h1 className="text-xl font-bold">Venue owner access only</h1>
+        <h1 className="text-xl font-bold">Business portal access</h1>
         <p className="mt-3 text-sm text-wtva-muted">
-          This account is not a venue owner
+          This login isn&apos;t set up as a venue owner
           {role !== "unknown" ? ` (current role: ${role})` : ""}.
-          Register here with a business account, or ask an admin to set your role to{" "}
-          <code className="text-foreground">venueOwner</code>
+          Sign in with a business account, register a new one, or ask an admin to set
+          your role to <code className="text-foreground">venueOwner</code>
           {metaRole === "venueOwner"
-            ? " — try signing out and back in. If this persists, ask an admin to set role to venueOwner in Supabase."
+            ? " — try signing out and back in."
             : "."}
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
@@ -33,12 +33,12 @@ export default async function BusinessAppLayout({
           >
             Register business
           </Link>
-          <a
-            href={process.env.NEXT_PUBLIC_CUSTOMER_APP_URL ?? "http://localhost:3001"}
+          <Link
+            href="/auth/login"
             className="inline-block rounded-lg border border-wtva-dark-300 px-4 py-2 text-sm font-semibold"
           >
-            Go to customer app
-          </a>
+            Sign in with another account
+          </Link>
         </div>
       </div>
     );
