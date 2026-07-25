@@ -51,10 +51,12 @@ export default async function BusinessAppLayout({
   return (
     <div className="flex min-h-screen items-stretch bg-background">
       <BusinessSidebar />
-      <div className="flex min-w-0 flex-1 flex-col">
+      <div className="flex min-w-0 flex-1 flex-col bg-wtva-card">
         <BusinessTopbar name={displayName} email={email} />
-        <main className="min-w-0 flex-1 pb-20 md:pb-0">
-          <div className="w-full max-w-none p-4 sm:p-6 lg:p-8">{children}</div>
+        <main className="min-w-0 flex-1 bg-wtva-card pb-20 md:pb-0">
+          <div className="w-full max-w-none p-4 text-foreground sm:p-6 lg:p-8">
+            {children}
+          </div>
         </main>
       </div>
       <BusinessNav />
