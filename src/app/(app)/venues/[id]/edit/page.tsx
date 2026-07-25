@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { StripeConnectPanel } from "@/components/stripe-connect-panel";
 import { VenueForm } from "@/components/venue-form";
 import { VenueListingSubmit } from "@/components/venue-listing-submit";
 import { requireVenueOwner } from "@/lib/auth/require-venue-owner";
@@ -47,7 +48,7 @@ export default async function EditVenuePage({
       )}
 
       {stripe_error && (
-        <p className="mt-4 rounded-lg border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-200">
+        <p className="mt-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
           {stripe_error}
         </p>
       )}
@@ -72,7 +73,7 @@ export default async function EditVenuePage({
         </div>
       </div>
 
-      <div className="mt-8 rounded-xl border border-wtva-dark-300 bg-wtva-card p-5">
+      <div className="mt-8 rounded-xl border border-wtva-dark-300 bg-white p-5 shadow-sm">
         <h2 className="font-semibold">Stripe payouts</h2>
         <p className="mt-1 text-sm text-wtva-muted">
           Paid tickets, VIP packages, and curated vibe bookings for this venue use Stripe
@@ -80,64 +81,9 @@ export default async function EditVenuePage({
           {settings.vip_commission_pct}% on VIP sales (vibe bookings use the Build Your Night
           fee), then Stripe routes the venue share to your connected account.
         </p>
-
-        {!stripeState && (
-          <p className="mt-4 text-sm text-amber-300">
-            Stripe payouts are not configured on this environment yet.
-          </p>
-        )}
-
-        {stripeState?.status === "not_connected" && (
-          <div className="mt-4 space-y-3">
-            <p className="text-sm text-wtva-muted">
-              Connect Stripe before customers can pay for your venue&apos;s tickets, VIP
-              packages, or vibe stops.
-            </p>
-            <Link
-              href={`/api/venues/stripe/onboarding?venueId=${venue.id}`}
-              className="inline-block rounded-full bg-accent-gradient shadow-accent px-4 py-2 text-sm font-semibold text-white"
-            >
-              Connect Stripe
-            </Link>
-          </div>
-        )}
-
-        {stripeState?.status === "pending" && (
-          <div className="mt-4 space-y-3">
-            <p className="text-sm text-amber-300">
-              Finish Stripe onboarding to unlock paid tickets, VIP checkout, and vibe
-              bookings.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <Link
-                href={`/api/venues/stripe/onboarding?venueId=${venue.id}`}
-                className="inline-block rounded-full bg-accent-gradient shadow-accent px-4 py-2 text-sm font-semibold text-white"
-              >
-                Finish onboarding
-              </Link>
-              <Link
-                href={`/api/venues/stripe/dashboard?venueId=${venue.id}`}
-                className="inline-block rounded-lg border border-wtva-dark-300 px-4 py-2 text-sm font-semibold"
-              >
-                Open Stripe dashboard
-              </Link>
-            </div>
-          </div>
-        )}
-
-        {stripeState?.status === "active" && (
-          <div className="mt-4 space-y-3">
-            <p className="text-sm text-green-400">
-              Stripe payouts are ready for this venue.
-            </p>
-            <Link
-              href={`/api/venues/stripe/dashboard?venueId=${venue.id}`}
-              className="inline-block rounded-lg border border-wtva-dark-300 px-4 py-2 text-sm font-semibold"
-            >
-              Open Stripe dashboard
-            </Link>
-          </div>
-        )}
+        <div className="mt-4">
+          <StripeConnectPanel venueId={venue.id} stripeState={stripeState} />
+        </div>
       </div>
 
       <div className="mt-8">

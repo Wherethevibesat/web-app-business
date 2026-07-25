@@ -1,6 +1,9 @@
 import Link from "next/link";
+import { StripeConnectPanel } from "@/components/stripe-connect-panel";
+import type { StripeConnectState } from "@/lib/stripe/connect";
 
 type VenueSummary = {
+  id?: string;
   name?: string | null;
   subscription_tier?: string | null;
   verification_status?: string | null;
@@ -8,8 +11,10 @@ type VenueSummary = {
 
 export function BusinessSettingsPanel({
   venue,
+  stripeState,
 }: {
   venue: VenueSummary;
+  stripeState: StripeConnectState | null;
 }) {
   return (
     <div className="w-full max-w-3xl space-y-6">
@@ -40,10 +45,10 @@ export function BusinessSettingsPanel({
         </dl>
         <div className="mt-6 flex flex-wrap gap-3">
           <Link
-            href={venue ? "/venues" : "/venues/new"}
+            href={venue?.id ? `/venues/${venue.id}/edit` : venue ? "/venues" : "/venues/new"}
             className="inline-flex rounded-full bg-accent-gradient px-4 py-2 text-sm font-semibold text-white shadow-accent"
           >
-            {venue ? "Manage venues" : "Add your venue"}
+            {venue ? "Manage venue" : "Add your venue"}
           </Link>
           <Link
             href="/onboarding"
@@ -55,18 +60,18 @@ export function BusinessSettingsPanel({
       </div>
 
       <div className="rounded-2xl border border-wtva-dark-300 bg-white p-6 shadow-sm">
-        <h2 className="text-lg font-semibold tracking-tight">Payments</h2>
+        <h2 className="text-lg font-semibold tracking-tight">Stripe payouts</h2>
         <p className="mt-1 text-sm text-wtva-muted">
-          Connect Stripe from your venue page so you can receive ticket, VIP, and
-          vibe payouts.
+          Connect or disconnect Stripe for ticket, VIP, and vibe payouts.
         </p>
         <div className="mt-5">
-          <Link
-            href={venue ? "/venues" : "/venues/new"}
-            className="text-sm font-medium text-accent underline-offset-2 hover:underline"
-          >
-            Open venues to manage Stripe Connect →
-          </Link>
+          {venue?.id ? (
+            <StripeConnectPanel venueId={venue.id} stripeState={stripeState} />
+          ) : (
+            <p className="text-sm text-wtva-muted">
+              Add a venue first, then you can connect Stripe here.
+            </p>
+          )}
         </div>
       </div>
     </div>

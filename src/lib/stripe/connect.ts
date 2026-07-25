@@ -237,3 +237,40 @@ export async function createDriverStripeDashboardLink(userId: string) {
 export async function createVenueOwnerStripeDashboardLink(userId: string) {
   return createStripeDashboardLink(userId);
 }
+
+/**
+ * Unlink Stripe Connect for a user. Removes our DB row(s) and best-effort
+ * deletes the Express account on Stripe (ignored if Stripe rejects).
+ */
+export async function disconnectStripeAccount(userId: string): Promise<{
+  disconnected: boolean;
+  stripeAccountId: string | null;
+}> {
+  const admin = createAdminClient();
+  const { data: rows } = await admin
+    .from("stripe_accounts")
+    .select("id, stripe_account_id")
+    .eq("user_id", userId);
+
+  if (!rows?.length) {
+    return { disconnected: false, stripeAccountId: null };
+  }
+
+  const stripe = getStripe();
+  let lastAccountId: string | null = null;
+
+  for (const row of rows) {
+    const accountId = row.stripe_account_id as string;
+    lastAccountId = accountId;
+    try {
+      await stripe.accounts.del(accountId);
+    } catch (err) {
+      console.warn("[stripe] could not delete Connect account", accountId, err);
+    }
+  }
+
+  const { error } = await admin.from("stripe_accounts").delete().eq("user_id", userId);
+  if (error) throw error;
+
+  return { disconnected: true, stripeAccountId: lastAccountId };
+}

@@ -4,6 +4,7 @@ import { AccountSettingsForm } from "@/components/account-settings-form";
 import { BusinessSettingsPanel } from "@/components/business-settings-panel";
 import { SettingsTabs } from "@/components/settings-tabs";
 import { getOwnerVenue, requireVenueOwner } from "@/lib/auth/require-venue-owner";
+import { getVenueOwnerStripeConnectState } from "@/lib/stripe/connect";
 
 export default async function SettingsPage({
   searchParams,
@@ -20,6 +21,9 @@ export default async function SettingsPage({
   }
 
   const venue = await getOwnerVenue(auth.user!.id, auth.supabase);
+  const stripeState = await getVenueOwnerStripeConnectState(auth.user!.id).catch(
+    () => null,
+  );
   const email = auth.profile?.email || auth.user?.email || "";
   const name = auth.profile?.name?.trim() || "";
 
@@ -30,7 +34,7 @@ export default async function SettingsPage({
         <p className="mt-1 text-sm text-wtva-muted">
           {tab === "account"
             ? "Your profile, email, and password."
-            : "Venue details, onboarding, and payouts."}
+            : "Venue details, onboarding, and Stripe payouts."}
         </p>
       </div>
 
@@ -42,7 +46,9 @@ export default async function SettingsPage({
         <AccountSettingsForm email={email} fullName={name} />
       )}
 
-      {tab === "business" && <BusinessSettingsPanel venue={venue} />}
+      {tab === "business" && (
+        <BusinessSettingsPanel venue={venue} stripeState={stripeState} />
+      )}
     </div>
   );
 }
