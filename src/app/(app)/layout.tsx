@@ -58,6 +58,7 @@ export default async function BusinessAppLayout({
             <Link href="/promoters" className="hover:text-accent">Promoters</Link>
             <Link href="/promotions" className="hover:text-accent">Promotions</Link>
             <Link href="/package-stops" className="hover:text-accent">Night packages</Link>
+            <Link href="/vibe-bookings" className="hover:text-accent">Vibe bookings</Link>
             <Link href="/settings" className="hover:text-accent">Settings</Link>
           </nav>
         </div>

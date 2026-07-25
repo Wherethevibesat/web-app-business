@@ -14,6 +14,7 @@ const links = [
   { href: "/promoters", icon: Handshake, label: "Promoters" },
   { href: "/promotions", icon: Megaphone, label: "Promos" },
   { href: "/package-stops", icon: Sparkles, label: "Packages" },
+  { href: "/vibe-bookings", icon: Sparkles, label: "Vibes" },
   { href: "/settings", icon: Settings, label: "Settings" },
 ];
 

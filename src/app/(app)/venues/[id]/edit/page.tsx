@@ -75,9 +75,10 @@ export default async function EditVenuePage({
       <div className="mt-8 rounded-xl border border-wtva-dark-300 bg-wtva-card p-5">
         <h2 className="font-semibold">Stripe payouts</h2>
         <p className="mt-1 text-sm text-wtva-muted">
-          Paid tickets and VIP packages for this venue use Stripe Connect. WTVA keeps{" "}
-          {settings.event_ticket_commission_pct}% on ticket sales and {settings.vip_commission_pct}
-          % on VIP sales, then Stripe routes the rest to your connected account.
+          Paid tickets, VIP packages, and curated vibe bookings for this venue use Stripe
+          Connect. WTVA keeps {settings.event_ticket_commission_pct}% on ticket sales and{" "}
+          {settings.vip_commission_pct}% on VIP sales (vibe bookings use the Build Your Night
+          fee), then Stripe routes the venue share to your connected account.
         </p>
 
         {!stripeState && (
@@ -89,7 +90,8 @@ export default async function EditVenuePage({
         {stripeState?.status === "not_connected" && (
           <div className="mt-4 space-y-3">
             <p className="text-sm text-wtva-muted">
-              Connect Stripe before customers can pay for your venue's tickets or VIP packages.
+              Connect Stripe before customers can pay for your venue&apos;s tickets, VIP
+              packages, or vibe stops.
             </p>
             <Link
               href={`/api/venues/stripe/onboarding?venueId=${venue.id}`}
@@ -103,7 +105,8 @@ export default async function EditVenuePage({
         {stripeState?.status === "pending" && (
           <div className="mt-4 space-y-3">
             <p className="text-sm text-amber-300">
-              Finish Stripe onboarding to unlock paid tickets and VIP checkout.
+              Finish Stripe onboarding to unlock paid tickets, VIP checkout, and vibe
+              bookings.
             </p>
             <div className="flex flex-wrap gap-3">
               <Link
