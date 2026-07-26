@@ -1,16 +1,32 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useState } from "react";
 import { BrandLogo } from "@/components/brand-logo";
 import { createClient } from "@/lib/supabase/client";
 
-export default function BusinessLoginPage() {
+function impersonationErrorMessage(code: string | null) {
+  switch (code) {
+    case "impersonation_expired":
+      return "That admin sign-in link expired. Try Login as owner again.";
+    case "impersonation_failed":
+      return "Could not complete admin sign-in. Try Login as owner again.";
+    case "impersonation_unavailable":
+      return "Impersonation is not configured. Check IMPERSONATION_SECRET on business + admin.";
+    default:
+      return null;
+  }
+}
+
+function BusinessLoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(
+    () => impersonationErrorMessage(searchParams.get("error")),
+  );
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -112,5 +128,19 @@ export default function BusinessLoginPage() {
         </p>
       </form>
     </div>
+  );
+}
+
+export default function BusinessLoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center text-sm text-wtva-muted">
+          Loading…
+        </div>
+      }
+    >
+      <BusinessLoginForm />
+    </Suspense>
   );
 }
