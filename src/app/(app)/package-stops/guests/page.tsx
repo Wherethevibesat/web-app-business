@@ -34,7 +34,7 @@ export default async function PackageGuestsPage() {
       </Link>
       <h1 className="mt-3 text-2xl font-bold">Package guests</h1>
       <p className="mt-1 text-sm text-wtva-muted">
-        Guests who booked a Build Your Night package that includes your venue.
+        Guests who booked a vibe that includes your venue. Contact details appear after payment.
       </p>
 
       <ul className="mt-6 space-y-2">
@@ -54,6 +54,9 @@ export default async function PackageGuestsPage() {
               }[]
             | null;
           const orderRow = Array.isArray(order) ? order[0] : order;
+          const showGuest =
+            orderRow?.status === "paid" || orderRow?.status === "awaiting_payment";
+          const showCode = orderRow?.status === "paid";
           return (
             <li
               key={row.id}
@@ -65,12 +68,20 @@ export default async function PackageGuestsPage() {
                   <p className="text-wtva-muted">
                     {row.party_size} guests
                     {row.scheduled_label ? ` · ${row.scheduled_label}` : ""}
-                    {orderRow?.guest_name ? ` · ${orderRow.guest_name}` : ""}
+                    {showGuest && orderRow?.guest_name
+                      ? ` · ${orderRow.guest_name}`
+                      : row.status === "pending_venue"
+                        ? " · request (contact hidden)"
+                        : ""}
                   </p>
                 </div>
                 <div className="text-right">
-                  <p className="font-mono font-semibold">{row.redemption_code}</p>
-                  <p className="text-xs text-wtva-muted capitalize">{row.status}</p>
+                  <p className="font-mono font-semibold">
+                    {showCode ? row.redemption_code : "—"}
+                  </p>
+                  <p className="text-xs text-wtva-muted capitalize">
+                    {(orderRow?.status ?? row.status).replace(/_/g, " ")}
+                  </p>
                 </div>
               </div>
             </li>
