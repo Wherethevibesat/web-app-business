@@ -30,6 +30,7 @@ export default async function EditPackageStopPage({
       <h1 className="mt-3 text-2xl font-bold">Edit package stop</h1>
       <p className="mt-1 text-sm text-wtva-muted capitalize">
         Status: {String(stop.status).replace(/_/g, " ")}
+        {stop.diy_pool ? " · DIY pool live" : ""}
       </p>
       <div className="mt-6">
         <PackageStopForm
@@ -48,6 +49,7 @@ export default async function EditPackageStopPage({
             dress_code: stop.dress_code,
             crowd_label: stop.crowd_label,
             contract_accepted: stop.contract_accepted,
+            diy_pool: Boolean(stop.diy_pool),
           }}
         />
       </div>

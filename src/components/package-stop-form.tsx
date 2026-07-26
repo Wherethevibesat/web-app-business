@@ -30,6 +30,7 @@ export function PackageStopForm({
     dress_code?: string | null;
     crowd_label?: string | null;
     contract_accepted?: boolean;
+    diy_pool?: boolean;
   };
 }) {
   const router = useRouter();
@@ -48,10 +49,15 @@ export function PackageStopForm({
   const [dressCode, setDressCode] = useState(initial?.dress_code ?? "");
   const [crowdLabel, setCrowdLabel] = useState(initial?.crowd_label ?? "");
   const [contractAccepted, setContractAccepted] = useState(Boolean(initial?.contract_accepted));
+  const [diyLive, setDiyLive] = useState(Boolean(initial?.diy_pool));
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  async function save(submitForReview: boolean) {
+  async function save(opts: {
+    submitForReview?: boolean;
+    publishToDiy?: boolean;
+    unpublishDiy?: boolean;
+  }) {
     if (!title.trim()) {
       setError("Title is required");
       return;
@@ -61,8 +67,9 @@ export function PackageStopForm({
       setError("Enter a valid price");
       return;
     }
-    if (submitForReview && !contractAccepted) {
-      setError("Accept the package participation terms to submit for review");
+    const needsContract = opts.submitForReview || opts.publishToDiy;
+    if (needsContract && !contractAccepted) {
+      setError("Accept the participation terms to go live or submit for curated review");
       return;
     }
     setBusy(true);
@@ -85,7 +92,9 @@ export function PackageStopForm({
         dressCode,
         crowdLabel,
         contractAccepted,
-        submitForReview,
+        submitForReview: Boolean(opts.submitForReview),
+        publishToDiy: Boolean(opts.publishToDiy),
+        unpublishDiy: Boolean(opts.unpublishDiy),
       }),
     });
     setBusy(false);
@@ -94,6 +103,8 @@ export function PackageStopForm({
       setError(body.error ?? "Could not save");
       return;
     }
+    if (opts.publishToDiy) setDiyLive(true);
+    if (opts.unpublishDiy) setDiyLive(false);
     router.push("/package-stops");
     router.refresh();
   }
@@ -230,16 +241,23 @@ export function PackageStopForm({
           onChange={(e) => setContractAccepted(e.target.checked)}
         />
         <span>
-          I agree WTVA may include this experience in curated multi-stop vibes, honor confirmed
-          guests at the listed price/inclusions, and settle payouts per WTVA’s terms.
+          I agree WTVA may list this experience in the DIY / random vibe pool and curated
+          multi-stop vibes, honor confirmed guests at the listed price/inclusions, and settle
+          payouts per WTVA’s terms.
         </span>
       </label>
+
+      {diyLive && (
+        <p className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-800">
+          Live in DIY pool — guests can add this to Build Your Own or Surprise Me vibes.
+        </p>
+      )}
 
       <div className="flex flex-wrap gap-3">
         <button
           type="button"
           disabled={busy}
-          onClick={() => save(false)}
+          onClick={() => save({})}
           className="rounded-full border border-wtva-dark-300 px-5 py-2.5 text-sm font-semibold"
         >
           Save draft
@@ -247,10 +265,20 @@ export function PackageStopForm({
         <button
           type="button"
           disabled={busy}
-          onClick={() => save(true)}
+          onClick={() =>
+            diyLive ? save({ unpublishDiy: true }) : save({ publishToDiy: true })
+          }
+          className="rounded-full border border-accent px-5 py-2.5 text-sm font-semibold text-accent"
+        >
+          {busy ? "Saving…" : diyLive ? "Take off DIY pool" : "Go live in DIY pool"}
+        </button>
+        <button
+          type="button"
+          disabled={busy}
+          onClick={() => save({ submitForReview: true })}
           className="rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white"
         >
-          {busy ? "Saving…" : "Submit for review"}
+          {busy ? "Saving…" : "Submit for curated review"}
         </button>
       </div>
     </div>

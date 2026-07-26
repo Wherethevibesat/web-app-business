@@ -43,8 +43,8 @@ export default async function PackageStopsPage() {
         <div>
           <h1 className="text-2xl font-bold">Package stops</h1>
           <p className="mt-1 text-sm text-wtva-muted">
-            Price brunch, day party, night, and after-hours offers for curated Build Your Night
-            packages.
+            Go live in the DIY pool for guest mix-and-match, and optionally submit for curated
+            vibes.
           </p>
         </div>
         <div className="flex shrink-0 flex-wrap gap-2">
@@ -77,9 +77,16 @@ export default async function PackageStopsPage() {
                     {String(stop.slot_type).replace(/_/g, " ")} · {formatCents(stop.price_cents)}
                   </p>
                 </div>
-                <span className="rounded-full border border-wtva-dark-300 px-2.5 py-0.5 text-xs font-semibold">
-                  {STATUS_LABEL[stop.status] ?? stop.status}
-                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {stop.diy_pool ? (
+                    <span className="rounded-full border border-emerald-500/40 bg-emerald-500/10 px-2.5 py-0.5 text-xs font-semibold text-emerald-800">
+                      DIY live
+                    </span>
+                  ) : null}
+                  <span className="rounded-full border border-wtva-dark-300 px-2.5 py-0.5 text-xs font-semibold">
+                    {STATUS_LABEL[stop.status] ?? stop.status}
+                  </span>
+                </div>
               </div>
             </Link>
           </li>
@@ -87,7 +94,8 @@ export default async function PackageStopsPage() {
       </ul>
       {stops.length === 0 && (
         <p className="mt-6 text-wtva-muted">
-          No stops yet. Create an offer, accept the package terms, and submit for WTVA review.
+          No stops yet. Create an offer, accept the terms, and go live in the DIY pool — or submit
+          for curated review.
         </p>
       )}
     </div>

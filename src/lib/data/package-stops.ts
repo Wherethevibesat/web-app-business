@@ -17,6 +17,10 @@ export type PackageStopOfferInput = {
   crowdLabel?: string | null;
   contractAccepted: boolean;
   submitForReview?: boolean;
+  /** Go live in customer DIY / random pool without curated approval. */
+  publishToDiy?: boolean;
+  /** Remove from DIY pool (keeps draft / review status). */
+  unpublishDiy?: boolean;
 };
 
 export async function listVenuePackageStops(supabase: SupabaseClient, venueId: string) {
@@ -40,6 +44,13 @@ export async function upsertVenuePackageStop(
       ? undefined
       : "draft";
 
+  if (
+    (input.publishToDiy || input.submitForReview) &&
+    !input.contractAccepted
+  ) {
+    throw new Error("Accept the package participation terms first");
+  }
+
   const payload = {
     venue_id: input.venueId,
     title: input.title.trim(),
@@ -59,7 +70,9 @@ export async function upsertVenuePackageStop(
     created_by: userId,
     updated_at: new Date().toISOString(),
     ...(status ? { status } : {}),
-    ...(input.submitForReview ? { is_active: true } : {}),
+    ...(input.submitForReview || input.publishToDiy ? { is_active: true } : {}),
+    ...(input.publishToDiy ? { diy_pool: true } : {}),
+    ...(input.unpublishDiy ? { diy_pool: false } : {}),
   };
 
   if (input.id) {

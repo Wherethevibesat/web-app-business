@@ -34,6 +34,8 @@ export async function POST(request: Request) {
       crowdLabel: body.crowdLabel,
       contractAccepted: Boolean(body.contractAccepted),
       submitForReview: Boolean(body.submitForReview),
+      publishToDiy: Boolean(body.publishToDiy),
+      unpublishDiy: Boolean(body.unpublishDiy),
     });
     return NextResponse.json({ id });
   } catch (e) {
